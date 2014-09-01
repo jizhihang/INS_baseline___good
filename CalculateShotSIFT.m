@@ -108,7 +108,7 @@ for i = 1:length(subfolders_dir)
                     end
                     image = im2single(image);
                     [sift_location, sift_feature] = vl_sift(image) ;   
-                    shot_sift = sift_feature;
+                    shot_sift = [sift_location; sift_feature];
                 else
                     img_path = fullfile(frame_folder,image_dir(j).name);
                     image = imread(img_path);
@@ -118,7 +118,7 @@ for i = 1:length(subfolders_dir)
                     image = im2single(image);
                     [sift_location, sift_feature] = vl_sift(image) ;   
                     
-                    current_sift = sift_feature;
+                    current_sift = [sift_location; sift_feature];
                     [matches, scores] = vl_ubcmatch(shot_sift, current_sift);
                     diff = 1:size(current_sift,2);
                     diff = setdiff(diff,matches(2,:));
@@ -141,7 +141,7 @@ for i = 1:length(subfolders_dir)
 
 
                 [sift_location, sift_feature] = vl_sift(image) ;
-                shot_sift = sift_feature;
+                shot_sift = [sift_location; sift_feature];
             end       
         end
         

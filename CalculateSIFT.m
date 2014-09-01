@@ -66,8 +66,7 @@ for i = 1:length(subfolders_dir),
 %             image_smooth = vl_imsmooth(image, sqrt((binSize/magnif)^2 - .25)) ;
             [sift_location, sift_feature] = vl_sift(image) ;     % using the dense sift to extract the sift feature
 
-            feature_set.location = sift_location;            
-            feature_set.feature = sift_feature;
+            feature_set = [sift_location; sift_feature];   
            
             % save the sift feature
             [~, fname] = fileparts(image_dir(j).name);                        

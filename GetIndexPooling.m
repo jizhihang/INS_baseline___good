@@ -1,4 +1,4 @@
-function  GetIndexPooling( dictionary,input_folder, output_folder,pyramid )
+function  GetIndexPooling( dictionary,input_folder, output_folder,pyramid, height, width )
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 disp('Extracting Index...');
@@ -39,7 +39,7 @@ for i = 1:length(subfolders_dir),
             index = ComputeCentroidsDistance(double(data'),dictionary');
             
             feature = [index';[1:size(index,1);ones(1,size(index,1))]];
-            sp_feature = sp(feature,1, size(index,1), pyramid);
+            sp_feature = sp(feature, height,width, pyramid);
             
              % save the index
             [~, fname] = fileparts(fea_dir(j).name);

@@ -1,4 +1,4 @@
-%% Instance Search____Baseline_____v1.0
+%% Instance Search____Baseline_____v1.1
 % ins.m
 %TRECVid2014 INS task
 %pkusz_emlt
@@ -15,10 +15,14 @@ run('vlfeat-0.9.18\toolbox\vl_setup');
 
 
 skip_extract_keyframe = true;
-skip_extract_keyframe_for_codebook = false;
-skip_extract_sift = true;
+skip_extract_keyframe_for_codebook = true;
 skip_extract_dictionary = true;
-skip_extract_index = true;
+skip_extract_shot_sift = false;
+skip_extract_index = false;
+
+height = 576;
+width = 768;
+
 
 %% ================== Part 1: Keyframe Extraction  ===============
 %
@@ -63,28 +67,28 @@ if (length(dir('feature'))<247)
     end
 end
 % extract SIFT feature from all key frames
-if(~skip_extract_sift)
+if(~skip_extract_shot_sift)
     CalculateMSER('keyframe','feature\MSER')
     CalculateImageMSER_r('feature\MSER','keyframe','keyframe_MSER')
     CalculateShotSIFT('keyframe_MSER','feature\SIFT')    
 
 end
 
-%Get Index according to the codebook
-if (~skip_extract_index)
-    load(dic_path);
-    GetIndex(dictionary,'feature\SIFT','feature\SIFT_index');
-end
-
-%Do Max Pooling similiar to spatial pyramid
-pyramid = [1, 2, 4];               % spatial block number on each level of the pyramid
-DoPooling('feature\SIFT_index','feature\SIFT_index_sp',pyramid);
+% %Get Index according to the codebook
+% if (~skip_extract_index)
+%     load(dic_path);
+%     GetIndex(dictionary,'feature\SIFT','feature\SIFT_index');
+% end
+% 
+% %Do Max Pooling similiar to spatial pyramid
+% pyramid = [1, 2, 4];               % spatial block number on each level of the pyramid
+% DoPooling('feature\SIFT_index','feature\SIFT_index_sp',pyramid);
 
 %OR------------------------
 if (~skip_extract_index)
     load(dic_path);
     pyramid = [1, 2, 4];               % spatial block number on each level of the pyramid
-    GetIndexPooling(dictionary,'feature\SIFT','feature\SIFT_index_sp',pyramid);
+    GetIndexPooling(dictionary,'feature\SIFT','feature\SIFT_index_sp',pyramid, height, width);
 end
 
 GetShotDatabase('feature\SIFT_index_sp','shot_sig');

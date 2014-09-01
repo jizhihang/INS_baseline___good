@@ -42,9 +42,9 @@ for i = 1:length(subfolders_dir),
             en_path = fullfile(e_folder,en_dir(j).name);
             load(en_path);
             if (j==1)
-                feature_en = feature_set.feature;
+                feature_en = feature_set;
             elseif (j==2)
-                data = feature_set.feature;
+                data = feature_set;
                 [matches, scores] = vl_ubcmatch(feature_en, data);
                 
                 diff2 = 1:size(data,2);
@@ -58,7 +58,7 @@ for i = 1:length(subfolders_dir),
                 
                 feature_en = feature_en(:,matches(1,:));
             elseif (j==3)
-                data = feature_set.feature;
+                data = feature_set;
                 [matches, scores] = vl_ubcmatch(feature_diff_en, data);                
                 feature_diff_en = feature_diff_en(:,matches(1,:));
                 
@@ -71,7 +71,7 @@ for i = 1:length(subfolders_dir),
                 
                 feature_en = feature_en(:,matches(1,:));
             elseif (j==4)
-                data = feature_set.feature;
+                data = feature_set;
                 [matches, scores] = vl_ubcmatch(feature_diff_en, data);                
                 feature_diff_en = feature_diff_en(:,matches(1,:));
                 
@@ -91,9 +91,9 @@ for i = 1:length(subfolders_dir),
             ins_path = fullfile(i_folder,ins_dir(j).name);
             load(ins_path);
             if (j==1)
-                feature_ins = feature_set.feature;
+                feature_ins = feature_set;
             else
-                data = feature_set.feature;
+                data = feature_set;
                 [matches, scores] = vl_ubcmatch(feature_ins, data);
                 
                 diff = 1:size(data,2);
